@@ -13,4 +13,4 @@ O Projeto Blog Pessoal possui as seguintes características:
 -Na Camada de Controller será criada a Classe PostagemController. 
 
 -Na Camada Controller será criado um endpoint:
-   -getAll() com a capacidade de listar todas as Postagens.
+    getAll() com a capacidade de listar todas as Postagens.
