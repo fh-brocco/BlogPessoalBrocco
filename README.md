@@ -20,15 +20,15 @@ O Projeto Blog Pessoal possui as seguintes características:
 Linguagem:
 
  Java
- -Programação Orientada ao Objeto - POO
+- Programação Orientada ao Objeto - POO
 
 #
 
 Aplicações:
 
-Spring
-Mysql
-Postman
+Spring 
+Mysql 
+Postman 
 
 #
 
