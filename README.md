@@ -14,3 +14,16 @@ O Projeto Blog Pessoal possui as seguintes características:
 
 -Na Camada Controller será criado um endpoint:
     getAll() com a capacidade de listar todas as Postagens.
+       
+Linguagem:
+
+Java
+-Programação Orientada ao Objeto - POO
+
+Aplicações:
+
+Spring
+Mysql
+Postman
+
+Projeto desenvolvido no modulo 2, no curso de formação de desenvolvedores FullStack Java Jr. da GenerationBrasil.
