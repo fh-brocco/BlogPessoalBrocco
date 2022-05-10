@@ -19,35 +19,48 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 
 //dá um nome para a tabela no meu banco de dados
-@Table(name= "tb_postagem")
+@Table(name = "tb_postagem")
 public class Postagem {
-	
+
 	// define a coluna de id como chave primaria
 	@Id
-	
+
 	// equivalente ao auto_increment no mysql
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
-	
+
 	// define que o campo é obrigatório
 	@NotNull
-	
-	// define um numero minimo e maximo de caracteres no campo 
-	@Size(min = 5, max = 100, message="O campo deve ter no minimo 5 caracteres, e no maximo 100 caracteres")
+
+	// define um numero minimo e maximo de caracteres no campo
+	@Size(min = 5, max = 100, message = "O campo deve ter no minimo 5 caracteres, e no maximo 100 caracteres")
 	public String titulo;
-	
+
 	@NotNull
-	@Size(min=10, max=500)
+	@Size(min = 10, max = 500)
 	public String texto;
-	
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
-	
+	/* Relacionamento com a classe Usuario
+	 * Não esqueça de criar os métodos getters e setters para o atributo usuario.
+	 */
+
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	/**
+	 * 
+	 * Os Métodos Get e Set obrigatoriamente devem ser criados para todos os atributos
+     * da Classe, inclusive os novos atributos que forem adicionados no decorrer do
+     * processo de Desenvolvimento.
+	 * 
+	 */	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
-		
-	
+
 	public Tema getTema() {
 		return tema;
 	}
@@ -87,6 +100,20 @@ public class Postagem {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+	/**
+	 * 
+	 * Os Métodos Get e Set obrigatoriamente devem ser criados para todos os atributos
+     * da Classe, inclusive os novos atributos que forem adicionados no decorrer do
+     * processo de Desenvolvimento.
+	 * 
+	 */	
 
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }
