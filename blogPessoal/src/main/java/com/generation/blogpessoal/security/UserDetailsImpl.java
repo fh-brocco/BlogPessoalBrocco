@@ -28,16 +28,12 @@ import com.generation.blogpessoal.model.Usuario;
  */
 
 public class UserDetailsImpl implements UserDetails {
-
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
-
 	private String password;
-
-	// autoriza todos os privilegios de usuario
 	private List<GrantedAuthority> authorities;
-	
+
 	/**
 	 * Método construtor com parâmetros 
 	 * 
@@ -46,29 +42,32 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 
 	public UserDetailsImpl(Usuario usuario) {
-
 		this.userName = usuario.getUsuario();
 		this.password = usuario.getSenha();
-
 	}
-	
-	//Métodos padrões do Basic Security
-	
+
+	/**
+	 * Método construtor sem parâmetros 
+	 */
+
+	public UserDetailsImpl() {	}
+
 	/**
 	 *  Sobrescreve (@Override) o método que retorna as Autorizações
 	 *  da conta do usuário. Nesta implementação, não há nenhuma autorização
 	 *  negada
 	 */
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return password;
 	}
-	
+
 	@Override
 	public String getUsername() {
 
@@ -84,6 +83,7 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isAccountNonExpired() {
 		return true;
 	}
+
 	/**
 	 *  Sobrescreve (@Override) o método que Indica se o usuário 
 	 *  está bloqueado ou desbloqueado.
@@ -107,12 +107,11 @@ public class UserDetailsImpl implements UserDetails {
 	/**
 	 * Sobrescreve (@Override) o método que Indica se o usuário 
 	 *  está habilitado ou desabilitado.
-	 *  Se mudar para false, nenhum usuário conseguirá logar.
+	 *  Se mudar para false nenhum usuário conseguirá logar.
 	 */
 
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}	
-
+	}
 }

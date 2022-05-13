@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,32 +22,19 @@ public class Usuario {
 	@Id // Definir a coluna de id como chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Equivalente ao auto_increment no mysql
 	private Long id;
-
+    
+	/* A anotação @NotBlank indica que o atributo não deve ser
+	 * nulo e/ou conter espaços em branco.*/
 	@NotBlank // Define que o campo não pode ter espaços vazios e em branco
 	private String nome;
 
-	@Email(message = "O usuário deve ser um email válido ex:maria@email.com")
-	@NotNull // Define que o campo não pode ter espaços vazios e em branco
+	@NotNull
+	@Email(message = "O usuário deve ser um email valido ex:maria@email.com")
 	private String usuario;
 
-	/**
-	 * A anotação @Size está definida apenas com o valor min
-	 * porque ao criptografar a senha a mesma terá uma tamanho
-	 * muito maior (em numero de caracteres) do que a senha
-	 * não ciptografada.
-	 * 
-	 * Exemplo: admin123 -> 8 caracteres
-	 * admin123 criptografado -> 60 caracteres
-	 * 
-	 * A anotação @NotBlank indica que o atributo não deve ser
-	 * nulo e/ou conter espaços em branco.
-	 */
-
-	@NotBlank(message = "O atributo Senha é Obrigatório!")
-	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
+	@NotNull
 	private String senha;
 
-	@NotBlank // Define que o campo não pode ter espaços vazios e em branco
 	private String foto;
 	
 	/**
@@ -65,7 +51,23 @@ public class Usuario {
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
+	// Metodos construtores para testes
+		//importante seguir a mesma ordem das declarações dos atributos de usuario acima 
+		//construtor cheio
+		public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+			this.id = id;
+			this.nome = nome;
+			this.usuario = usuario;
+			this.senha = senha;
+			this.foto = foto;
+		}
+
+	//construtor vazio
+	public Usuario() {}
+
+		
 	// Métodos - Getter e Setters
+	
 	public Long getId() {
 		return id;
 	}
@@ -113,6 +115,5 @@ public class Usuario {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-
-
+	
 }

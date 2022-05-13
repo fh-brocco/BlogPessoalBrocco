@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 /**
  * Classe BasicSecurityConfig
  * 
@@ -34,7 +33,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *  A annotation @EnableWebSecurity: habilita a configuração de segurança padrão 
  *  do Spring Security na nossa api.
  */
-
 @EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -47,8 +45,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * Classe UserDetailsServiceImpl que fará o acesso ao nosso Banco de dados
 	 * para recuperar os dados do usuário.
 	 */
-	
-	// Serve para comparar os dados digitados com os dados salvos no banco de dados.
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -71,22 +68,25 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	 *  3) private: proíbe qualquer acesso externo à própria classe, inclusive 
 	 *     das classes filhas.
 	 */
-	
-	// Sobrecarga de método -usuario em memoria PARA TESTE
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
+		
 		/**
 		 *  O objeto auth registra e cria uma nova instância do objeto userDetailsService
 		 *  da interface UserDetailsService implementada na Classe UserDetailsServiceImpl
 		 *  para recuperar os dados dos usuários gravados no Banco de dados.
 		 */
 		
-		auth.inMemoryAuthentication()
-		.withUser("root")
-		.password(passwordEncoder().encode("root"))
-		.authorities("ROLE_USER");
+		 auth.userDetailsService(userDetailsService);
+
+		 auth.inMemoryAuthentication()
+			.withUser("root")
+			.password(passwordEncoder().encode("root"))
+			.authorities("ROLE_USER");
+
 	}
+
 	/**
 	 *  A annotation @Bean transforma a instância retornada pelo método como um 
 	 *  objeto gerenciado pelo Spring, desta forma, ele pode ser injetado em qualquer
@@ -96,22 +96,21 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	 *  O método abaixo é responsável por criptografar a senha do usuário utilizando o
 	 *  método hash Bcrypt.
 	 */
-
-	// notação que deixa uma função acessível globalmente(em toda a aplicação)
+	
 	@Bean
-
-	// função que criptografa a senha digitada
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	/**
 	 *  Sobrescreve (@Override) o segundo método Configure que é responsável por
 	 *  criar uma instância da Classe HttpSecurity, que permite configurar a 
 	 *  segurança baseada na web para solicitações http específicas (endpoints)
 	 */
-
-	@Override
+	
+	 @Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		/**
 		 * antMatchers().permitAll -> Endpoint liberado de autenticação
 		 * 
@@ -157,16 +156,18 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		 * os endpoints que respondem ao verbo POST não serão executados.
 		 * 
 		 */
+
 		http.authorizeRequests()
-		.antMatchers("/usuarios/logar").permitAll()
-		.antMatchers("/usuarios/cadastrar").permitAll()
-		.antMatchers(HttpMethod.OPTIONS).permitAll()
-		.anyRequest()
-		.authenticated()
-		.and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().cors()
-		.and().csrf().disable();
+			.antMatchers("/usuarios/logar").permitAll()
+			.antMatchers("/usuarios/cadastrar").permitAll()
+			.antMatchers("/produtos").permitAll()
+			.antMatchers(HttpMethod.OPTIONS).permitAll()
+			.anyRequest().authenticated()
+			.and().httpBasic()
+			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and().cors()
+			.and().csrf().disable();
+			
 	}
 
 }

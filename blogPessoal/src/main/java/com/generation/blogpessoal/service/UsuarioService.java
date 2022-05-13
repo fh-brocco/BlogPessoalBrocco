@@ -30,11 +30,13 @@ import com.generation.blogpessoal.repository.UsuarioRepository;
  * A Anotação @Service indica que esta é uma Classe de Serviço, ou seja,
  * implementa todas regras de negócio do Recurso Usuário.
  */
+
+
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
-	private UsuarioRepository repository;
+	private UsuarioRepository usuarioRepository;
 	
 	/**
 	 *  Cadastrar Usuário
@@ -50,7 +52,7 @@ public class UsuarioService {
 	 */
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 
-		if (repository.findByUsuario(usuario.getUsuario()).isPresent())
+		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			return Optional.empty();
 		
 		/**
@@ -66,27 +68,50 @@ public class UsuarioService {
 		 * of​ -> Retorna um Optional com o valor fornecido, mas o valor não pode ser nulo. 
 		 * Se não tiver certeza de que o valor não é nulo use ofNullable.
 		 */
-		return Optional.of(repository.save(usuario));
+		return Optional.of(usuarioRepository.save(usuario));
 	
 	}
-	
+
 	/**
-	*  Método Criptografar Senhas.
-	*   
-	*  Instancia um objeto da Classe BCryptPasswordEncoder para criptografar
-	*  a senha do usuário.
-	*
-	*  O método encode retorna a senha criptografada no formato BCrypt. Para mais detalhes,
-	*  consulte a documentação do BCryptPasswordEncoder.
-	* 
-	*/
-	private String criptografarSenha(String senha) {
-
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	 *  Atualizar Usuário
+	 * 
+	 *  Checa se o usuário já existe no Banco de Dados através do método findById, 
+	 *  porquê não é possíve atualizar 1 usuário inexistente. 
+	 *  Se não existir retorna um Optional vazio.
+	 *  
+	 *  isPresent() -> Se um valor estiver presente retorna true, caso contrário
+	 *  retorna false.
+	 * 
+	 */
+	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 		
-		return encoder.encode(senha);
+		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
+			
+			/**
+		 	* Se o Usuário existir no Banco de Dados, a senha será criptografada
+		 	* através do Método criptografarSenha.
+		 	*/
+			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
-	}
+			/**
+		 	* Assim como na Expressão Lambda, o resultado do método save será retornado dentro
+		 	* de um Optional, com o Usuario persistido no Banco de Dados ou um Optional vazio,
+			* caso aconteça algum erro.
+			* 
+			* ofNullable​ -> Se um valor estiver presente, retorna um Optional com o valor, 
+			* caso contrário, retorna um Optional vazio.
+		 	*/
+			return Optional.ofNullable(usuarioRepository.save(usuario));
+			
+		}
+		
+		/**
+		 * empty -> Retorna uma instância de Optional vazia, caso o usuário não seja encontrado.
+		 */
+		return Optional.empty();
+	
+	}	
+
 	/**
 	 *  A principal função do método autenticarUsuario, que é executado no endpoint logar,
 	 *  é gerar o token do usuário codificado em Base64. O login prorpiamente dito é executado
@@ -108,7 +133,7 @@ public class UsuarioService {
 		 * do Objeto encpsulado.
 		 * 
 		 */
-		Optional<Usuario> usuario = repository.findByUsuario(usuarioLogin.get().getUsuario());
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
 		/**
 		 * Checa se o usuario existe
@@ -150,6 +175,25 @@ public class UsuarioService {
 		 * empty -> Retorna uma instância de Optional vazia, caso o usuário não seja encontrado.
 		 */
 		return Optional.empty();
+		
+	}
+
+	/**
+	*  Método Criptografar Senhas.
+	*   
+	*  Instancia um objeto da Classe BCryptPasswordEncoder para criptografar
+	*  a senha do usuário.
+	*
+	*  O método encode retorna a senha criptografada no formato BCrypt. Para mais detalhes,
+	*  consulte a documentação do BCryptPasswordEncoder.
+	* 
+	*/
+	private String criptografarSenha(String senha) {
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		return encoder.encode(senha);
+
 	}
 	
 	/**
@@ -173,7 +217,7 @@ public class UsuarioService {
 		return encoder.matches(senhaDigitada, senhaBanco);
 
 	}
-	
+
 	/**
 	* Método Gerar Basic Token
 	* 
@@ -210,5 +254,6 @@ public class UsuarioService {
 		return "Basic " + new String(tokenBase64);
 
 	}
+	
 
 }
