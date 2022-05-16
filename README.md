@@ -1,5 +1,14 @@
 # BlogPessoalBrocco
 
+
+-> Deploy e Documentação do projeto
+
+https://blogdobrocco.herokuapp.com/
+
+Login: root
+
+Senha: root
+#
 O Projeto Blog Pessoal possui as seguintes características:
 
 - Dependências no arquivo pom.xml
@@ -29,6 +38,8 @@ Spring
 Mysql 
 
 Postman 
+
+Insomnia
 
 #
 
