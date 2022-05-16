@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
@@ -28,8 +30,9 @@ public class Usuario {
 	@NotBlank // Define que o campo não pode ter espaços vazios e em branco
 	private String nome;
 
-	@NotNull
-	@Email(message = "O usuário deve ser um email valido ex:maria@email.com")
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "O atributo usuário é obrigatório!")
+	@Email(message = "O atributo usuário deve ser um email válido!")
 	private String usuario;
 
 	@NotNull
