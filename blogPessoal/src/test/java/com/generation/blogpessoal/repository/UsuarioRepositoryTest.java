@@ -40,13 +40,13 @@ public class UsuarioRepositoryTest {
 		 * Persiste (Grava) 4 Objetos Usuario no Banco de dados
 		 */ 
 
-        repository.save(new Usuario(0L, "Maiar da Silva", "isadora@gmail.com","51 e pinga","https://i.imgur.com/FETvs2O.jpg"));
+        repository.save(new Usuario(0L, "Maiar da Silva", "isadora@gmail.com","51 e pinga","https://i.imgur.com/FETvs2O.jpg", "adm"));
 		
-		repository.save(new Usuario(0L, "Michael da Silva", "michaeltrimundial@gmail.com","nunca fui rebaixado","https://i.imgur.com/FETvs2O.jpg"));
+		repository.save(new Usuario(0L, "Michael da Silva", "michaeltrimundial@gmail.com","nunca fui rebaixado","https://i.imgur.com/FETvs2O.jpg", "adm"));
 		
-		repository.save(new Usuario(0L, "Fernando da Silva", "brocco@gmail.com","broccolis","https://i.imgur.com/FETvs2O.jpg"));
+		repository.save(new Usuario(0L, "Fernando da Silva", "brocco@gmail.com","broccolis","https://i.imgur.com/FETvs2O.jpg", "adm"));
 		
-		repository.save(new Usuario(0L, "Mayara da Costa", "will31smith@gmail.com","cenoura","https://i.imgur.com/FETvs2O.jpg"));
+		repository.save(new Usuario(0L, "Mayara da Costa", "will31smith@gmail.com","cenoura","https://i.imgur.com/FETvs2O.jpg", "adm"));
 	}
 
 	@Test

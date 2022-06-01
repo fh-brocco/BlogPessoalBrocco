@@ -45,7 +45,7 @@ public class UsuarioControllerTest {
 		 * Cria um objeto da Classe Usuario e insere dentro de um Objeto da Classe HttpEntity (Entidade HTTP)
 		 */
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-			"Fernando Brocco", "fernando_brocco@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg"));
+			"Fernando Brocco", "fernando_brocco@email.com.br", "13465278", "https://i.imgur.com/JR7kUFU.jpg", "adm"));
 
 		/**
 		 * Cria um Objeto da Classe ResponseEntity (corpoResposta), que receberá a Resposta da Requisição que será 
@@ -87,14 +87,14 @@ public class UsuarioControllerTest {
 		 * Persiste um objeto da Classe Usuario no Banco de dados através do Objeto da Classe UsuarioService
 		 */
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Michael Silva", "michael_silva@email.com.br", "13465278", "https://i.imgur.com/T12NIp9.jpg"));
+			"Michael Silva", "michael_silva@email.com.br", "13465278", "https://i.imgur.com/T12NIp9.jpg", "adm"));
 
 		/**
 		 * Cria o mesmo objeto da Classe Usuario que foi persistido no Banco de dados na linha anterior para
 		 * simular uma duplicação de usuário e insere dentro de um Objeto da Classe HttpEntity (Entidade HTTP)
 		 */
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-			"Michael Silva", "michael_silva@email.com.br", "13465278", "https://i.imgur.com/T12NIp9.jpg"));
+			"Michael Silva", "michael_silva@email.com.br", "13465278", "https://i.imgur.com/T12NIp9.jpg", "adm"));
 
 		/**
 		 * Cria um Objeto da Classe ResponseEntity (corpoResposta), que receberá a Resposta da Requisição que será 
@@ -127,7 +127,7 @@ public class UsuarioControllerTest {
 		 * de dados, o Optional evitará o erro NullPointerException (Objeto Nulo).
 		 */
 		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Israel Igarashi", "israel_igarashi@email.com.br", "igarashi123", "https://i.imgur.com/yDRVeK7.jpg"));
+			"Israel Igarashi", "israel_igarashi@email.com.br", "igarashi123", "https://i.imgur.com/yDRVeK7.jpg", "adm"));
 		/**
 		 *  Cria um Objeto da Classe Usuário contendo os dados do Objeto usuarioCadastrado, que foi persistido na
 		 *  linha anterior, alterando os Atributos Nome e Usuário (Atualização dos Atributos). 
@@ -135,7 +135,7 @@ public class UsuarioControllerTest {
 		 * Observe que para obter o Id de forma automática, foi utilizado o método getId() do Objeto usuarioCadastrado.
 		 */
 		Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(), 
-			"Gustavo dos Anjos", "gustavo_anjos@email.com.br", "gust123" , "https://i.imgur.com/yDRVeK7.jpg");
+			"Gustavo dos Anjos", "gustavo_anjos@email.com.br", "gust123" , "https://i.imgur.com/yDRVeK7.jpg", "adm");
 		
 		/**
 		 * Insere o objeto da Classe Usuario (usuarioUpdate) dentro de um Objeto da Classe HttpEntity (Entidade HTTP)
@@ -189,10 +189,10 @@ public class UsuarioControllerTest {
 		 * Persiste dois objetos diferentes da Classe Usuario no Banco de dados através do Objeto da Classe UsuarioService
 		 */
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Maiar Darweesh ", "maiar_lindo@email.com.br", "maiar123", "https://i.imgur.com/5M2p5Wb.jpg"));
+			"Maiar Darweesh ", "maiar_lindo@email.com.br", "maiar123", "https://i.imgur.com/5M2p5Wb.jpg", "adm"));
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Ddouglas Michel", "douglas_michel@email.com.br", "doug123", "https://i.imgur.com/Sk5SjWE.jpg"));
+			"Ddouglas Michel", "douglas_michel@email.com.br", "doug123", "https://i.imgur.com/Sk5SjWE.jpg", "adm"));
 
 		/**
 		 * Cria um Objeto da Classe ResponseEntity (corpoResposta), que receberá a Resposta da Requisição que será 
@@ -236,7 +236,7 @@ public class UsuarioControllerTest {
 		 * de dados, o Optional evitará o erro NullPointerException (Objeto Nulo).
 		 */
 		Optional<Usuario> usuarioBusca = usuarioService.cadastrarUsuario(new Usuario(0L, 
-				"Mina Santos", "mina_santos@email.com.br", "mina12345", "https://i.imgur.com/EcJG8kB.jpg"));
+				"Mina Santos", "mina_santos@email.com.br", "mina12345", "https://i.imgur.com/EcJG8kB.jpg", "adm"));
 			
 		/**
 		 * Cria um Objeto da Classe ResponseEntity (corpoResposta), que receberá a Resposta da Requisição que será 

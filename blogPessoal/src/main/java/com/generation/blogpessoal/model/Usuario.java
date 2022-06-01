@@ -40,6 +40,8 @@ public class Usuario {
 
 	private String foto;
 	
+	private String tipo;
+	
 	/**
 	 * CascadeType.REMOVE -> Ele propaga a operação de remoção de um objeto Pai para um 
 	 * objeto Filho. 
@@ -57,12 +59,13 @@ public class Usuario {
 	// Metodos construtores para testes
 		//importante seguir a mesma ordem das declarações dos atributos de usuario acima 
 		//construtor cheio
-		public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		public Usuario(Long id, String nome, String usuario, String senha, String foto,String tipo) {
 			this.id = id;
 			this.nome = nome;
 			this.usuario = usuario;
 			this.senha = senha;
 			this.foto = foto;
+			this.tipo = tipo;
 		}
 
 	//construtor vazio
@@ -109,6 +112,14 @@ public class Usuario {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public List<Postagem> getPostagem() {
