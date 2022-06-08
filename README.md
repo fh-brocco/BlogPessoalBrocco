@@ -3,7 +3,7 @@
 
 -> Deploy e Documentação do projeto
 
-https://blogdobrocco.herokuapp.com/
+https://broccoblog.herokuapp.com/
 
 Login: root
 
